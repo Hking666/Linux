@@ -6,11 +6,16 @@ void sigcb(int signo)// 信号回调函数
 {
     printf("recv a signal:%d\n",signo);
 }
+void prin()
+{
 
+    printf("nihao");
+}
 int main()
 {
     while(1)
     {
+        prin();
         printf("hello\n");
         sleep(1);
        // signal(SIGINT,SIG_IGN);// SIGINT 中断信号,SIG_IGN 信号被忽略

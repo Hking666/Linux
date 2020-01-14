@@ -10,11 +10,10 @@ void sigcb(int signo)
 
 int main(int argc ,char *argv[])
 {
-
     while(a)
     {
         printf("%d\n",a);
-       sleep(1);
+        sleep(1);
         signal(SIGINT,sigcb);
         signal(SIGQUIT,sigcb);
     }

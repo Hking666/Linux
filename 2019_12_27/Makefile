@@ -1,2 +1,2 @@
 create:create.c
-	gcc $^ -o $@ -LPTHPE
+	gcc $^ -o $@ -lthread
