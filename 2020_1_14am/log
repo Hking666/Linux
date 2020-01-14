@@ -1,0 +1,171 @@
+g++ -o cp cp.cpp -lpthread 
+cp.cpp:3:7: 错误：expected nested-name-specifier before ‘namespace’
+ using namespace std;
+       ^
+cp.cpp:3:7: 错误：expected unqualified-id before ‘namespace’
+cp.cpp:3:7: 错误：expected ‘;’ before ‘namespace’
+cp.cpp:3:7: 错误：expected unqualified-id before ‘namespace’
+cp.cpp:5:17: 警告：non-static data member initializers only available with -std=c++11 or -std=gnu++11 [默认启用]
+ const int num = 16;
+                 ^
+cp.cpp:40:1: 错误：expected ‘}’ at end of input
+ }
+ ^
+In file included from cp.cpp:1:0:
+cp.hpp: 在构造函数‘RingQueue::RingQueue(int)’中:
+cp.hpp:15:14: 错误：类‘RingQueue’没有名为‘_cap’的字段
+             :_cap(cap)
+              ^
+cp.hpp:16:14: 错误：类‘RingQueue’没有名为‘ring’的字段
+             ,ring(cap)// 指定vector数组元素个数
+              ^
+cp.hpp:18:13: 错误：‘c_step’在此作用域中尚未声明
+             c_step = p_step = 0; // 生产者与消费者在同一位置
+             ^
+cp.hpp:18:22: 错误：‘p_step’在此作用域中尚未声明
+             c_step = p_step = 0; // 生产者与消费者在同一位置
+                      ^
+cp.hpp:19:23: 错误：‘blank_sem’在此作用域中尚未声明
+             sem_init(&blank_sem,0,_cap);//生产者格子资源初始值为环形格子数
+                       ^
+cp.hpp:19:35: 错误：‘_cap’在此作用域中尚未声明
+             sem_init(&blank_sem,0,_cap);//生产者格子资源初始值为环形格子数
+                                   ^
+cp.hpp:20:23: 错误：‘data_sem’在此作用域中尚未声明
+             sem_init(&data_sem,0,0);// 消费者数据资源初始值为0；生产者没有生产
+                       ^
+cp.hpp: 在析构函数‘RingQueue::~RingQueue()’中:
+cp.hpp:25:26: 错误：‘blank_sem’在此作用域中尚未声明
+             sem_destroy(&blank_sem);
+                          ^
+cp.hpp:26:26: 错误：‘data_sem’在此作用域中尚未声明
+             sem_destroy(&data_sem);
+                          ^
+cp.hpp: 在成员函数‘void RingQueue::PushData(const int&)’中:
+cp.hpp:32:15: 错误：‘blank_sem’在此作用域中尚未声明
+             P(blank_sem); //申请格子资源,格子信号量减1
+               ^
+cp.hpp:32:24: 错误：‘P’在此作用域中尚未声明
+             P(blank_sem); //申请格子资源,格子信号量减1
+                        ^
+cp.hpp:33:13: 错误：‘ring’在此作用域中尚未声明
+             ring[p_step] = data;//在申请格子上放数据,此时数据就变多了
+             ^
+cp.hpp:33:18: 错误：‘p_step’在此作用域中尚未声明
+             ring[p_step] = data;//在申请格子上放数据,此时数据就变多了
+                  ^
+cp.hpp:34:15: 错误：‘data_sem’在此作用域中尚未声明
+             V(data_sem);// 数据信号量加1
+               ^
+cp.hpp:34:23: 错误：‘V’在此作用域中尚未声明
+             V(data_sem);// 数据信号量加1
+                       ^
+cp.hpp:36:23: 错误：‘_cap’在此作用域中尚未声明
+             p_step %= _cap;
+                       ^
+cp.hpp: 在成员函数‘void RingQueue::PopData(int&)’中:
+cp.hpp:42:15: 错误：‘data_sem’在此作用域中尚未声明
+             P(data_sem);// 申请数据资源，数据信号量减1
+               ^
+cp.hpp:42:23: 错误：‘P’在此作用域中尚未声明
+             P(data_sem);// 申请数据资源，数据信号量减1
+                       ^
+cp.hpp:43:20: 错误：‘ring’在此作用域中尚未声明
+             data = ring[c_step]; //有数据了，数据跟随消费者的脚步
+                    ^
+cp.hpp:43:25: 错误：‘c_step’在此作用域中尚未声明
+             data = ring[c_step]; //有数据了，数据跟随消费者的脚步
+                         ^
+cp.hpp:44:15: 错误：‘blank_sem’在此作用域中尚未声明
+             V(blank_sem); // 数据被拿走了 ， 此时格子就多出来了
+               ^
+cp.hpp:44:24: 错误：‘V’在此作用域中尚未声明
+             V(blank_sem); // 数据被拿走了 ， 此时格子就多出来了
+                        ^
+cp.hpp:46:23: 错误：‘_cap’在此作用域中尚未声明
+             c_step %= _cap;
+                       ^
+cp.hpp:48:5: 错误：expected primary-expression before ‘private’
+     private:
+     ^
+cp.hpp:48:5: 错误：expected ‘;’ before ‘private’
+cp.hpp:56:13: 错误：a function-definition is not allowed here before ‘{’ token
+             {
+             ^
+cp.hpp:59:5: 错误：expected primary-expression before ‘private’
+     private:
+     ^
+cp.hpp:59:5: 错误：expected ‘;’ before ‘private’
+cp.cpp: 在成员函数‘void* RingQueue::consume_routine(void*)’中:
+cp.cpp:14:9: 错误：‘cout’在此作用域中尚未声明
+         cout<<"consume done,data is :" <<d<<endl;
+         ^
+cp.cpp:14:9: 附注：建议的替代：
+In file included from cp.hpp:3:0,
+                 from cp.cpp:1:
+/usr/include/c++/4.8.2/iostream:61:18: 附注：  ‘std::cout’
+   extern ostream cout;  /// Linked to standard output
+                  ^
+cp.cpp:14:45: 错误：‘endl’在此作用域中尚未声明
+         cout<<"consume done,data is :" <<d<<endl;
+                                             ^
+cp.cpp:14:45: 附注：建议的替代：
+In file included from /usr/include/c++/4.8.2/iostream:39:0,
+                 from cp.hpp:3,
+                 from cp.cpp:1:
+/usr/include/c++/4.8.2/ostream:564:5: 附注：  ‘std::endl’
+     endl(basic_ostream<_CharT, _Traits>& __os)
+     ^
+cp.cpp: 在成员函数‘void* RingQueue::product_routine(void*)’中:
+cp.cpp:27:9: 错误：‘cout’在此作用域中尚未声明
+         cout<<"product done,data is :" <<d<<endl;
+         ^
+cp.cpp:27:9: 附注：建议的替代：
+In file included from cp.hpp:3:0,
+                 from cp.cpp:1:
+/usr/include/c++/4.8.2/iostream:61:18: 附注：  ‘std::cout’
+   extern ostream cout;  /// Linked to standard output
+                  ^
+cp.cpp:27:45: 错误：‘endl’在此作用域中尚未声明
+         cout<<"product done,data is :" <<d<<endl;
+                                             ^
+cp.cpp:27:45: 附注：建议的替代：
+In file included from /usr/include/c++/4.8.2/iostream:39:0,
+                 from cp.hpp:3,
+                 from cp.cpp:1:
+/usr/include/c++/4.8.2/ostream:564:5: 附注：  ‘std::endl’
+     endl(basic_ostream<_CharT, _Traits>& __os)
+     ^
+cp.cpp: 在成员函数‘int RingQueue::main()’中:
+cp.cpp:33:18: 错误：相互冲突的声明‘pthread_t p’
+     pthread_t c, p;
+                  ^
+cp.cpp:32:16: 错误：‘p’早先被声明为‘RingQueue* p’
+     RingQueue *p = new RingQueue(num); //创建队列
+                ^
+cp.cpp:34:52: 错误：无法将‘RingQueue::consume_routine’从类型‘void* (RingQueue::)(void*)’转换到类型‘void* (*)(void*)’
+     pthread_create(&c,NULL,consume_routine,(void*)p);
+                                                    ^
+cp.cpp:35:52: 错误：不能将‘int pthread_create(pthread_t*, const pthread_attr_t*, void* (*)(void*), void*)’的实参‘1’从‘RingQueue**’转换到‘pthread_t* {aka long unsigned int*}’
+     pthread_create(&p,NULL,product_routine,(void*)p);
+                                                    ^
+cp.cpp:38:24: 错误：从类型‘RingQueue*’到类型‘pthread_t {aka long unsigned int}’的转换无效 [-fpermissive]
+     pthread_join(p,NULL);
+                        ^
+In file included from /usr/include/c++/4.8.2/x86_64-redhat-linux/bits/gthr-default.h:35:0,
+                 from /usr/include/c++/4.8.2/x86_64-redhat-linux/bits/gthr.h:148,
+                 from /usr/include/c++/4.8.2/ext/atomicity.h:35,
+                 from /usr/include/c++/4.8.2/bits/ios_base.h:39,
+                 from /usr/include/c++/4.8.2/ios:42,
+                 from /usr/include/c++/4.8.2/ostream:38,
+                 from /usr/include/c++/4.8.2/iostream:39,
+                 from cp.hpp:3,
+                 from cp.cpp:1:
+/usr/include/pthread.h:252:12: 错误：  初始化‘int pthread_join(pthread_t, void**)’的实参 1 [-fpermissive]
+ extern int pthread_join (pthread_t __th, void **__thread_return);
+            ^
+cp.cpp: 在全局域：
+cp.cpp:40:1: 错误：expected unqualified-id at end of input
+ }
+ ^
+make: *** [cp] 错误 1
