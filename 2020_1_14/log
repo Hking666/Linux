@@ -1,0 +1,37 @@
+g++ -o main main.cpp -lpthread
+In file included from main.cpp:1:0:
+thread_pool.hpp:173:9: 错误：‘pthred_cond_t’不是一个类型名
+         pthred_cond_t cond; // 定义条件变量  ---- 当队列为空时，线程等待
+         ^
+In file included from main.cpp:1:0:
+thread_pool.hpp: 在成员函数‘void ThreadPool::InitThreadPool()’中:
+thread_pool.hpp:60:32: 错误：‘cond’在此作用域中尚未声明
+             pthread_cond_init(&cond,NULL);
+                                ^
+thread_pool.hpp:69:42: 错误：‘thread_rountine’在此作用域中尚未声明
+                 pthread_create(&tid,NULL,thread_rountine,(void*) this);
+                                          ^
+thread_pool.hpp: 在析构函数‘ThreadPool::~ThreadPool()’中:
+thread_pool.hpp:76:35: 错误：‘cond’在此作用域中尚未声明
+             pthread_cond_destroy(&cond);
+                                   ^
+thread_pool.hpp: 在成员函数‘void ThreadPool::IdleThread()’中:
+thread_pool.hpp:99:32: 错误：‘cond’在此作用域中尚未声明
+             pthread_cond_wait(&cond,&lock);
+                                ^
+thread_pool.hpp: 在成员函数‘void ThreadPool::AddTask(Task&)’中:
+thread_pool.hpp:109:15: 错误：‘class Task’没有名为‘queue’的成员
+             t.queue.push(t);
+               ^
+thread_pool.hpp: 在成员函数‘Task ThreadPool::GetTask()’中:
+thread_pool.hpp:120:13: 错误：‘Taskt’在此作用域中尚未声明
+             Taskt = t_queue.front();
+             ^
+thread_pool.hpp:122:20: 错误：‘t’在此作用域中尚未声明
+             return t;
+                    ^
+thread_pool.hpp: 在成员函数‘void ThreadPool::NotifyOneThread()’中:
+thread_pool.hpp:128:34: 错误：‘cond’在此作用域中尚未声明
+             pthread_cond_signal(&cond); // 唤醒一个线程
+                                  ^
+make: *** [main] 错误 1
